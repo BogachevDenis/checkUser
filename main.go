@@ -2,35 +2,29 @@ package main
 
 import "fmt"
 
-const (
-	ADMIN = "admin"
-)
-
-func main()  {
-	user := getUser("Denis","admin",29)
-	fmt.Println("Is Admin", user.IsAdmin())
-	fmt.Println("CheckAge", user.checkAge())
-}
-
 type User struct {
+	Id   int
 	Name string
 	Role string
 	Age int
 }
 
-type UserInterface interface {
-	IsAdmin() bool
-	checkAge() bool
-}
 
-func (u *User) IsAdmin() bool  {
-	return u.Role == "admin"
+func (u *User) CreateUser(id int, name string, role string, age int) {
+	u.Id = id
+	u.Name = name
+	u.Role = role
+	u.Age = age
 }
 
 func (u *User) checkAge() bool  {
 	return u.Age > 18
 }
 
-func getUser(Name string, Role string, Age int) UserInterface  {
-	return &User{Name: Name,Role: Role, Age : Age}
+
+func main() {
+	usr := new(User)
+	usr.CreateUser(5, "Denis", "Admin", 24)
+	fmt.Println(usr)
+	fmt.Println("checkAge - ", usr.checkAge())
 }
